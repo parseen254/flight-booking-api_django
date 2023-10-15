@@ -1,0 +1,55 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:9.4
+        env:
+          POSTGRES_DB: flight_booking
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install coverage
+        pip install coveralls
+
+    - name: Create PostgreSQL database
+      run: |
+        psql -U postgres -c 'create database flight_booking;'
+
+    - name: Apply migrations
+      run: |
+        python manage.py makemigrations
+        python manage.py migrate
+
+    - name: Run tests
+      run: |
+        coverage run --source='.' ./manage.py test
+        coverage report
+
+    - name: Upload coverage to Coveralls
+      run: coveralls
+
+
