@@ -42,7 +42,7 @@ jobs:
         python manage.py makemigrations
         python manage.py migrate
       env: 
-        DATABASE_URL: "postgres://postgres:5432/flight_booking"
+        DATABASE_URL: "postgres://postgres:postgres@localhost:5432/flight_booking"
         SECRET_KEY: "test_key"
 
     - name: Run tests
@@ -50,7 +50,7 @@ jobs:
         coverage run --source='.' ./manage.py test
         coverage report
       env: 
-        DATABASE_URL: "postgres://postgres:postgres@postgres:5432/flight_booking"
+        DATABASE_URL: "postgres://postgres:postgres@localhost:5432/flight_booking"
         SECRET_KEY: "test_key"
 
     - name: Upload coverage to Coveralls
