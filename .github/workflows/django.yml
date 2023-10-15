@@ -37,10 +37,6 @@ jobs:
         pip install coverage
         pip install coveralls
 
-    - name: Create PostgreSQL database
-      run: |
-        psql -U postgres -c 'create database flight_booking;'
-
     - name: Apply migrations
       run: |
         python manage.py makemigrations
