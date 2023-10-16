@@ -1,7 +1,5 @@
 # Flight Booking
 
-[![Build Status](https://travis-ci.org/parseen254/flight-booking-api_django.svg?branch=develop)](https://travis-ci.org/parseen254/flight-booking-api_django)
-[![Coverage Status](https://coveralls.io/repos/github/parseen254/flight-booking-api_django/badge.svg?branch=develop)](https://coveralls.io/github/parseen254/flight-booking-api_django?branch=develop)
 
 FlightBooking is a web app that automates the process of booking for a flight.
 The flight booking system provides an API that allows users to 
